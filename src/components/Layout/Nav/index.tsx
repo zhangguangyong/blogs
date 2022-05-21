@@ -1,16 +1,27 @@
-import {FC, ReactElement} from 'react'
+import {FC, ReactElement, useContext} from 'react'
 import './index.scss'
 import {Button} from '@mui/material'
+import {ActionType, INav, LayoutContext} from 'components/Layout/types'
+import {uuid} from 'utils'
 
 export const Nav: FC = (): ReactElement => {
+  let {state, dispatch} = useContext(LayoutContext)!
+
+  const handleClick = (item: INav) => {
+    dispatch({type: ActionType.NAV_CLICK, payload: item})
+  }
+
   const render = () => {
     return (
-      <>
-        <Button variant={'text'}>Linux</Button>
-        <Button variant={'text'}>Mac</Button>
-        <Button variant={'text'}>Java</Button>
-        <Button variant={'text'}>MySQL</Button>
-      </>
+      state.navs.map((item) => (
+        <Button
+          key={uuid()}
+          variant={'text'}
+          onClick={() => handleClick(item)}
+        >
+          {item.name}
+        </Button>
+      ))
     )
   }
 

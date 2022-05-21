@@ -1,75 +1,28 @@
-import {FC, ReactElement} from 'react'
+import {FC, ReactElement, useContext} from 'react'
 import './index.scss'
 import {TreeItem, TreeView} from '@mui/lab'
 import {ChevronRight, ExpandMore} from '@mui/icons-material'
-
-interface Node {
-  id: string
-  name: string
-  children?: Node[]
-}
+import {IMenu, LayoutContext} from 'components/Layout/types'
+import {uuid} from 'utils'
 
 export const Menu: FC = (): ReactElement => {
-  const load = (): Node[] => {
-    return [
-      {
-        id: '1',
-        name: '顶级节点1',
-        children: [
-          {
-            id: '1-1',
-            name: '字节点-11'
-          },
-          {
-            id: '1-2',
-            name: '字节点-12',
-            children: [
-              {
-                id: '1-2-1',
-                name: '字节点-121',
-              }
-            ]
-          }
-        ]
-      },
-      {
-        id: '2',
-        name: '顶级节点2',
-        children: [
-          {
-            id: '2-1',
-            name: '字节点-21'
-          },
-          {
-            id: '2-2',
-            name: '字节点-22',
-            children: [
-              {
-                id: '2-2-1',
-                name: '字节点-221',
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  let {state, dispatch} = useContext(LayoutContext)!
 
   const render = () => {
-    let nodes = load()
+    let menus = state.checkedNav?.menus!
     return (
       <>
-        {nodes.map(node => renderNode(node))}
+        {menus.map(node => renderNode(node))}
       </>
     )
   }
 
-  const renderNode = (node: Node) => {
+  const renderNode = (menu: IMenu) => {
     return (
-      <TreeItem key={node.id} nodeId={node.id} label={node.name}>
+      <TreeItem key={uuid()} nodeId={menu.id} label={menu.name}>
         {
-          Array.isArray(node.children)
-            ? node.children.map(n => renderNode(n))
+          Array.isArray(menu.children)
+            ? menu.children.map(n => renderNode(n))
             : null
         }
       </TreeItem>
@@ -78,8 +31,9 @@ export const Menu: FC = (): ReactElement => {
 
   return (
     <TreeView
-      aria-label={'数据对象'}
-      defaultExpanded={['root']}
+      aria-label={'目录'}
+      defaultExpanded={[state.checkedNav.menus[0].id]}
+      defaultSelected={state.checkedMenu.id}
       defaultCollapseIcon={<ExpandMore/>}
       defaultExpandIcon={<ChevronRight/>}
     >

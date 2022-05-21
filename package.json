@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://zhangguangyong.github.io/blogs",
   "dependencies": {
+    "@codemirror/lang-javascript": "^0.20.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.8.0",
@@ -16,6 +17,8 @@
     "@types/node": "^16.11.36",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",
+    "@types/uuid": "^8.3.4",
+    "@uiw/react-codemirror": "^4.7.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
