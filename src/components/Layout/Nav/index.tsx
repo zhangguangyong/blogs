@@ -2,7 +2,6 @@ import {FC, ReactElement} from 'react'
 import './index.scss'
 import {Button} from '@mui/material'
 
-
 export const Nav: FC = (): ReactElement => {
   const render = () => {
     return (

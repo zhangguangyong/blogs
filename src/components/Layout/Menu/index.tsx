@@ -10,7 +10,6 @@ interface Node {
 }
 
 export const Menu: FC = (): ReactElement => {
-
   const load = (): Node[] => {
     return [
       {
