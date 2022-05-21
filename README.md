@@ -12,7 +12,7 @@ git branch -M main
 git push -f -u origin main
 
 package.json
-"homepage":"https://{username}.github.io/games"
+"homepage":"https://{username}.github.io/blogs"
 "predeploy": "yarn build",
 "deploy": "gh-pages -d build",
 
