@@ -1,22 +1,19 @@
 import React from 'react'
 import {uuid} from 'utils'
+import type {DataNode} from 'antd/lib/tree'
 
 // 状态
-export interface IMenu {
-  id: string,
-  name: string
-  children?: IMenu[]
-}
 
 export interface INav {
-  name: string
-  menus: IMenu[]
+  title: string
+  menus: DataNode[]
 }
 
 export interface IState {
   navs: INav[]
   checkedNav: INav
-  checkedMenu: IMenu
+  checkedMenu: DataNode
+
 }
 
 // 动作
@@ -27,7 +24,7 @@ export enum ActionType {
 
 export interface IAction {
   type: ActionType
-  payload?: INav | IMenu
+  payload?: INav | DataNode
 }
 
 
@@ -43,52 +40,62 @@ export const LayoutContext = React.createContext<IContext | null>(null!)
 export const initState = (): IState => {
   const navs: INav[] = [
     {
-      name: 'Linux',
+      title: 'Linux',
       menus: [
         {
-          id: uuid(),
-          name: '常用命令',
+          key: uuid(),
+          title: '常用命令',
           children: [
             {
-              id: uuid(),
-              name: 'cd'
+              key: uuid(),
+              title: 'cd',
+              children: [
+                {
+                  key: uuid(),
+                  title: '当前目录'
+                },
+                {
+                  key: uuid(),
+                  title: '跳转到当前目录'
+                }
+              ]
             },
             {
-              id: uuid(),
-              name: 'pwd'
+              key: uuid(),
+              title: 'pwd'
             }
           ]
         },
         {
-          id: uuid(),
-          name: 'Shell脚本',
+          key: uuid(),
+          title: 'Shell脚本',
           children: [
             {
-              id: uuid(),
-              name: 'for循环'
+              key: uuid(),
+              title: 'for循环'
             },
             {
-              id: uuid(),
-              name: 'if条件'
+              key: uuid(),
+              title: 'if条件'
             }
           ]
         }
       ]
     },
     {
-      name: 'Java',
+      title: 'Java',
       menus: [
         {
-          id: uuid(),
-          name: 'JDK安装配置',
+          key: uuid(),
+          title: 'JDK安装配置',
           children: [
             {
-              id: uuid(),
-              name: '下载安装'
+              key: uuid(),
+              title: '下载安装'
             },
             {
-              id: uuid(),
-              name: '配置环境变量'
+              key: uuid(),
+              title: '配置环境变量'
             }
           ]
         }
@@ -96,7 +103,7 @@ export const initState = (): IState => {
     }
   ]
   const checkedNav: INav = navs[0]
-  const checkedMenu: IMenu = checkedNav.menus[0]
+  const checkedMenu: DataNode = checkedNav.menus[0]
 
   return {
     navs,

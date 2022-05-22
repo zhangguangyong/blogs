@@ -1,45 +1,32 @@
-import {FC, ReactElement, useContext} from 'react'
+import {FC, ReactElement, useContext, useEffect, useState} from 'react'
 import './index.scss'
-import {TreeItem, TreeView} from '@mui/lab'
-import {ChevronRight, ExpandMore} from '@mui/icons-material'
-import {IMenu, LayoutContext} from 'components/Layout/types'
-import {uuid} from 'utils'
+import {Tree} from 'antd'
+import {LayoutContext} from 'components/Layout/types'
+import {DataNode} from 'antd/lib/tree'
 
 export const Menu: FC = (): ReactElement => {
   let {state, dispatch} = useContext(LayoutContext)!
+  let [expanded, setExpanded] = useState<string[]>()
 
-  const render = () => {
-    let menus = state.checkedNav?.menus!
-    return (
-      <>
-        {menus.map(node => renderNode(node))}
-      </>
-    )
+  useEffect(() => {
+    setExpanded(findParents(state.checkedNav.menus[0]))
+  }, [state.checkedNav])
+
+  const findParents = (menu: DataNode): string[] => {
+    const parents: string[] = []
+    deepParents(menu, parents)
+    return parents
   }
-
-  const renderNode = (menu: IMenu) => {
-    return (
-      <TreeItem key={uuid()} nodeId={menu.id} label={menu.name}>
-        {
-          Array.isArray(menu.children)
-            ? menu.children.map(n => renderNode(n))
-            : null
-        }
-      </TreeItem>
-    )
+  const deepParents = (menu: DataNode, parents: string[]) => {
+    if (menu.children && menu.children.length) {
+      parents.push(menu.key as string)
+      deepParents(menu.children[0], parents)
+    }
   }
 
   return (
-    <TreeView
-      aria-label={'目录'}
-      defaultExpanded={[state.checkedNav.menus[0].id]}
-      defaultSelected={state.checkedMenu.id}
-      defaultCollapseIcon={<ExpandMore/>}
-      defaultExpandIcon={<ChevronRight/>}
-    >
-      {
-        render()
-      }
-    </TreeView>
+    <Tree
+      treeData={state.checkedNav.menus}
+    />
   )
 }

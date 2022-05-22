@@ -1,8 +1,8 @@
 import {FC, ReactElement, useContext} from 'react'
 import './index.scss'
-import {Button} from '@mui/material'
 import {ActionType, INav, LayoutContext} from 'components/Layout/types'
 import {uuid} from 'utils'
+import {Button} from 'antd'
 
 export const Nav: FC = (): ReactElement => {
   let {state, dispatch} = useContext(LayoutContext)!
@@ -16,10 +16,10 @@ export const Nav: FC = (): ReactElement => {
       state.navs.map((item) => (
         <Button
           key={uuid()}
-          variant={'text'}
+          type={'link'}
           onClick={() => handleClick(item)}
         >
-          {item.name}
+          {item.title}
         </Button>
       ))
     )
