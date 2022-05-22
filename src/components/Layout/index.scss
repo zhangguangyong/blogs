@@ -18,14 +18,17 @@
     display: flex;
 
     .left {
+
       width: 200px;
       height: 100%;
+      padding-right: 16px;
       background-color: bisque;
     }
 
     .right {
       width: calc(100% - 200px);
       height: 100%;
+      padding: 0 10px;
     }
   }
 }
