@@ -19,6 +19,29 @@
     width: 50%;
     height: 100%;
     overflow:auto;
+    //ul,li{
+    //  margin: 0;
+    //  padding: 0;
+    //}
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
+      border: 1px solid #ddd;
+    }
+
+    td, th {
+      border: 1px solid #ddd;
+      padding: 5px;
+    }
+
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
   }
 
 }
