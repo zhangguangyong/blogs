@@ -111,3 +111,16 @@ export const initState = (): IState => {
     checkedMenu
   }
 }
+
+
+// const findParents = (menu: DataNode): string[] => {
+//   const parents: string[] = []
+//   deepParents(menu, parents)
+//   return parents
+// }
+// const deepParents = (menu: DataNode, parents: string[]) => {
+//   if (menu.children && menu.children.length) {
+//     parents.push(menu.key as string)
+//     deepParents(menu.children[0], parents)
+//   }
+// }

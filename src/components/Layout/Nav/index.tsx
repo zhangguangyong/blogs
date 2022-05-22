@@ -16,7 +16,7 @@ export const Nav: FC = (): ReactElement => {
       state.navs.map((item) => (
         <Button
           key={uuid()}
-          type={'link'}
+          type={'text'}
           onClick={() => handleClick(item)}
         >
           {item.title}
