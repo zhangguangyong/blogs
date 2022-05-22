@@ -9,16 +9,17 @@ import {marked} from 'marked'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github.css'
 
-
 export const Home: FC = (): ReactElement => {
   let [code, setCode] = useState('')
   let [preview, setPreview] = useState('')
+
   const init = () => {
     fetch(md)
       .then(r => r.text())
       .then(text => {
-        setCode(text)
-        setPreview(toMarked(text))
+        let t = text.replaceAll('{PUBLIC_URL}',process.env.PUBLIC_URL!)
+        setCode(t)
+        setPreview(toMarked(t))
       })
   }
   init()
