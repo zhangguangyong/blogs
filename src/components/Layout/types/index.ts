@@ -3,17 +3,18 @@ import {uuid} from 'utils'
 import type {DataNode} from 'antd/lib/tree'
 
 // 状态
+export interface MenuNode extends DataNode {
+  route?: string
+}
 
 export interface INav {
   title: string
-  menus: DataNode[]
+  menus: MenuNode[]
 }
 
 export interface IState {
-  navs: INav[]
-  checkedNav: INav
-  checkedMenu: DataNode
-
+  navs: INav[],
+  currentNav: INav
 }
 
 // 动作
@@ -24,7 +25,7 @@ export enum ActionType {
 
 export interface IAction {
   type: ActionType
-  payload?: INav | DataNode
+  payload?: INav | MenuNode
 }
 
 
@@ -44,41 +45,13 @@ export const initState = (): IState => {
       menus: [
         {
           key: uuid(),
-          title: '常用命令',
-          children: [
-            {
-              key: uuid(),
-              title: 'cd',
-              children: [
-                {
-                  key: uuid(),
-                  title: '当前目录'
-                },
-                {
-                  key: uuid(),
-                  title: '跳转到当前目录'
-                }
-              ]
-            },
-            {
-              key: uuid(),
-              title: 'pwd'
-            }
-          ]
+          title: '初始设置',
+          route: '/linux/01'
         },
         {
           key: uuid(),
-          title: 'Shell脚本',
-          children: [
-            {
-              key: uuid(),
-              title: 'for循环'
-            },
-            {
-              key: uuid(),
-              title: 'if条件'
-            }
-          ]
+          title: '软件安装',
+          route: '/linux/02'
         }
       ]
     },
@@ -102,13 +75,10 @@ export const initState = (): IState => {
       ]
     }
   ]
-  const checkedNav: INav = navs[0]
-  const checkedMenu: DataNode = checkedNav.menus[0]
-
+  const currentNav: INav = navs[0]
   return {
     navs,
-    checkedNav,
-    checkedMenu
+    currentNav
   }
 }
 
