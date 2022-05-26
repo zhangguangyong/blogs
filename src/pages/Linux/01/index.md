@@ -91,3 +91,29 @@ echo "export PS1='[\[\e[32;1m\]\u@\[\e[33;1m\]\h\[\e[34;1m\] \W\[\e[0m\]]\$ '" >
 source /etc/profile
 
 ```
+
+### mysql大数据导入
+```sql
+-- https://blog.csdn.net/ydyuse/article/details/110109312
+1.进入mysql
+ mysql -u root -p
+
+2.创建数据库
+ CREATE DATABASE 数据库名;
+
+3.设置参数
+ set sql_log_bin=OFF; //关闭日志
+ set autocommit=0; //关闭autocommit自动提交模式
+
+4.使用数据库
+ use 数据库名;
+
+5.开启事务
+ START TRANSACTION;
+
+6.引入SQL文件
+ source 文件的路径;
+
+7.成功后事务提交
+ COMMIT;
+```
