@@ -2,6 +2,7 @@
 
 ```
 技术栈：react+typescript+ant
+https://go-echarts.github.io/go-echarts/docs/geo
 ```
 
 # 部署到 GitHub Pages
